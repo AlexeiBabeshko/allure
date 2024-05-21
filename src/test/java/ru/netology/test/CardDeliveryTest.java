@@ -1,8 +1,8 @@
 package ru.netology.test;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.Keys;
 import ru.netology.data.DataGenerator;
 import java.io.IOException;
@@ -25,9 +25,17 @@ public class CardDeliveryTest {
     String notificationRePlanTitleSelector = "[data-test-id=replan-notification] .notification__title";
     String notificationRePlanButton = "[data-test-id=replan-notification] button";
 
+    @BeforeAll
+    static void setupAll(){
+        SelenideLogger.addListener("allure", new AllureSelenide());
+    }
     @BeforeEach
     void setup() {
         open("http://localhost:9999");
+    }
+    @AfterAll
+    static void tearDownAll(){
+        SelenideLogger.removeListener("allure");
     }
 
     @Test
